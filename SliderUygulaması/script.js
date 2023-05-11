@@ -28,7 +28,18 @@ let models =[
 
 let index = 0
 let slaytCount = models.length
-showSlide(index)
+let interval
+
+let settings={
+    duration:'2000',
+    random:false
+}
+
+
+
+
+
+init(settings)
 
 document.querySelector('.fa-circle-arrow-left').addEventListener
 ('click',function(){
@@ -41,6 +52,44 @@ document.querySelector('.fa-circle-arrow-right').addEventListener
     index++
     showSlide(index)
 })
+
+document.querySelectorAll('.fa-2x').forEach(function(item){
+    item.addEventListener('mouseenter',function(){
+        clearInterval(interval)
+    })
+})
+
+document.querySelectorAll('.fa-2x').forEach(function(item){
+    item.addEventListener('mouseleave',function(){
+        init(settings)
+    })
+})
+
+function init(settings){
+
+    let prev
+   interval = setInterval(function(){
+
+        if(settings.random){
+
+            do{
+            index= Math.floor(Math.random() * slaytCount)
+            }while(index == prev){
+                prev = index
+            }
+        }else{
+            if(slaytCount==index +1){
+                index=-1
+            }
+            showSlide(index)
+            index++
+        }
+        showSlide(index)
+    },settings.duration)
+
+
+}
+
 
 
 function showSlide(i){
