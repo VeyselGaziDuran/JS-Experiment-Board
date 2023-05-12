@@ -36,10 +36,32 @@ function success(input){
   }
   
 
+  function checkLength(input,min,max){
+    if(input.value.length < min){
+        error(input, `${input.id} en az ${min} karakter olmalıdır`)
+    }else if(input.value.length > max){
+        error(input, `${input.id} en fazla ${max} karakter olmalıdır`)
+    }else{
+        success(input)
+    }
+
+  }
+
+  function checkPasswords(input1, input2){
+    if(input1.value !== input2.value){
+        error(input2, 'parolalar eşleşmiyor')
+    }
+  }
+
+
 
 form.addEventListener('submit', function(e){
     e.preventDefault()
 
     checkRequired([username,email,password,repassword])
     checkEmail(email)
+    checkLength(username,7,15)
+    checkLength(password,7,20)
+    checkPasswords(password,repassword)
+
 })
