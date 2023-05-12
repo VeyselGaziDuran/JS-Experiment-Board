@@ -34,6 +34,12 @@ function success(input){
       }
     });
   }
+
+  function checkPhone(input){
+    let ex = /^\d{10}$/;
+    if(!ex.test(input.value))
+        error(input, 'telefon 10 karakterli olmalıdır')
+    }
   
 
   function checkLength(input,min,max){
@@ -58,10 +64,11 @@ function success(input){
 form.addEventListener('submit', function(e){
     e.preventDefault()
 
-    checkRequired([username,email,password,repassword])
+    checkRequired([username,email,password,repassword,phone])
     checkEmail(email)
     checkLength(username,7,15)
     checkLength(password,7,20)
     checkPasswords(password,repassword)
+    checkPhone(phone)
 
 })
